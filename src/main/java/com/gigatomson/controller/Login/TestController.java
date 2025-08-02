@@ -1,4 +1,4 @@
-package com.controller;
+package com.gigatomson.controller.Login;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
