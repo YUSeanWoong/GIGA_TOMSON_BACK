@@ -16,6 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Make Gradle wrapper executable
+        run: chmod +x gradlew
+
       # 2) JDK 설치
       - name: Set up Java
         uses: actions/setup-java@v3
