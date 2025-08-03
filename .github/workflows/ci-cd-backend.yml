@@ -64,30 +64,30 @@ jobs:
           echo "${{ secrets.VM_SSH_KEY }}" | tr -d '\r' > ~/.ssh/vm_deploy_key
           chmod 600 ~/.ssh/vm_deploy_key
 
-      # 9-0) 디버깅
-      - name: 🛠️ Check saved SSH key on runner
-        run: |
-          echo "Trying to connect to ${{ secrets.VM_HOST }}"
-          echo "✅ Check SSH directory:"
-          ls -al ~/.ssh || echo "❌ ~/.ssh directory does not exist"
-          
-          echo "✅ Check key file existence:"
-          if [ -f ~/.ssh/vm_deploy_key ]; then
-            echo "✔️ Key file exists."
-            head -n 5 ~/.ssh/vm_deploy_key
-          else
-            echo "❌ Key file missing."
-          fi
-
-
-      # 9-1) 2단계
-      - name: 🧪 Test SSH connection with verbose logs
-        run: |
-          ssh -vvv -o StrictHostKeyChecking=no \
-              -o UserKnownHostsFile=/dev/null \
-              -i ~/.ssh/vm_deploy_key \
-              ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
-              "echo '✅ SSH 접속 성공! VM에서 명령이 실행되었습니다.'"
+#      # 9-0) 디버깅
+#      - name: 🛠️ Check saved SSH key on runner
+#        run: |
+#          echo "Trying to connect to ${{ secrets.VM_HOST }}"
+#          echo "✅ Check SSH directory:"
+#          ls -al ~/.ssh || echo "❌ ~/.ssh directory does not exist"
+#
+#          echo "✅ Check key file existence:"
+#          if [ -f ~/.ssh/vm_deploy_key ]; then
+#            echo "✔️ Key file exists."
+#            head -n 5 ~/.ssh/vm_deploy_key
+#          else
+#            echo "❌ Key file missing."
+#          fi
+#
+#
+#      # 9-1) 2단계
+#      - name: 🧪 Test SSH connection with verbose logs
+#        run: |
+#          ssh -vvv -o StrictHostKeyChecking=no \
+#              -o UserKnownHostsFile=/dev/null \
+#              -i ~/.ssh/vm_deploy_key \
+#              ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
+#              "echo '✅ SSH 접속 성공! VM에서 명령이 실행되었습니다.'"
 
        # 9) VM에 SSH로 접속해 컨테이너 업데이트
       - name: Deploy to VM via SSH
