@@ -97,7 +97,7 @@ jobs:
           REPO=backend-docker
           IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
 
-          # user@host 부분에 공백·특수문자 없이 올바른 값만 들어가야 합니다.
+        
           ssh -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ~/.ssh/vm_deploy_key \
