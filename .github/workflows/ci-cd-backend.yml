@@ -67,6 +67,7 @@ jobs:
       # 9-0) 디버깅
       - name: 🛠️ Check saved SSH key on runner
         run: |
+          echo "Trying to connect to ${{ secrets.VM_HOST }}"
           echo "✅ Check SSH directory:"
           ls -al ~/.ssh || echo "❌ ~/.ssh directory does not exist"
           
