@@ -79,6 +79,7 @@ jobs:
             echo "❌ Key file missing."
           fi
 
+
       # 9-1) 2단계
       - name: 🧪 Test SSH connection with verbose logs
         run: |
