@@ -62,7 +62,7 @@ jobs:
         run: |
           ssh -vvv -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i ~/.ssh/id_rsa \
+              -i ~/.ssh/vm_deploy_key \
               ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
               "echo Connected"      
 
@@ -70,8 +70,8 @@ jobs:
       - name: Deploy to VM via SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/vm_deploy_key
+          chmod 600 ~/.ssh/vm_deploy_key
 
           REPO=backend-docker
           IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
