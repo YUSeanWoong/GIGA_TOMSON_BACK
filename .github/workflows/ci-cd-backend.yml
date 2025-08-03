@@ -61,14 +61,14 @@ jobs:
       # A) 네트워크 연결 테스트 (ping)
       - name: Ping VM host
         run: |
-          apt-get update -y
-          apt-get install -y iputils-ping
+          sudo apt-get update -y
+          sudo apt-get install -y iputils-ping
           ping -c 4 ${{ secrets.VM_HOST }}
 
       # B) SSH 포트 22 열림 확인 (netcat)
       - name: Check SSH port
         run: |
-          apt-get install -y netcat
+          sudo apt-get install -y netcat
           nc -vz ${{ secrets.VM_HOST }} 22 || echo "port 22 not reachable"
 
       # C) SSH 직접 디버그 시도 (verbose 모드)
