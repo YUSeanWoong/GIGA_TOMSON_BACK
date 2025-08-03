@@ -88,6 +88,7 @@ jobs:
               -i ~/.ssh/vm_deploy_key \
               ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
               "echo '✅ SSH 접속 성공! VM에서 명령이 실행되었습니다.'"
+
        # 9) VM에 SSH로 접속해 컨테이너 업데이트
       - name: Deploy to VM via SSH
         run: |
@@ -103,7 +104,7 @@ jobs:
               -o UserKnownHostsFile=/dev/null \
               -i ~/.ssh/vm_deploy_key \
               ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
-              "cd ~/deploy && \
+              "mkdir -p ~/deploy && cd ~/deploy && \
                docker pull $IMAGE && \
                docker stop backend-container 2>/dev/null || true && \
                docker rm backend-container 2>/dev/null || true && \
