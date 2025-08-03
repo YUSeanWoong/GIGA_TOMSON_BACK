@@ -57,13 +57,31 @@ jobs:
           REPO=tomson-backend
           IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
           docker push $IMAGE
+       # 9) VM에 SSH로 접속해 컨테이너 업데이트
+      - name: Deploy to VM via SSH
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+         host:     ${{ secrets.VM_HOST }}
+         username: ${{ secrets.VM_USER }}
+         key:      ${{ secrets.VM_SSH_KEY }}
+         script: |
+            cd ~/deploy
+            REPO=backend-docker
+            IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
+            docker pull $IMAGE
+             docker stop backend-container || true
+             docker rm   backend-container || true
+             docker run -d \
+               --name backend-container \
+               -p 80:8080 \
+               $IMAGE
+#      # 9) Cloud Run 배포
+#      - name: Deploy to Cloud Run
+#        run: |
+#          REPO=tomson-backend
+#          gcloud run deploy ${{ secrets.BACKEND_SERVICE_NAME }} \
+#            --image asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }} \
+#            --region ${{ secrets.GCP_REGION }} \
+#            --platform managed \
+#            --allow-unauthenticated
 
-      # 9) Cloud Run 배포
-      - name: Deploy to Cloud Run
-        run: |
-          REPO=tomson-backend
-          gcloud run deploy ${{ secrets.BACKEND_SERVICE_NAME }} \
-            --image asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }} \
-            --region ${{ secrets.GCP_REGION }} \
-            --platform managed \
-            --allow-unauthenticated
