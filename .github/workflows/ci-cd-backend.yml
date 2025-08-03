@@ -73,12 +73,12 @@ jobs:
                 -o UserKnownHostsFile=/dev/null \
                 -i ~/.ssh/id_rsa \
                 ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} << 'EOF'
-              cd ~/deploy
+              "cd ~/deploy
               docker pull $IMAGE
               docker stop backend-container 2>/dev/null || true
               docker rm   backend-container 2>/dev/null || true
-              docker run -d --name backend-container -p 80:8080 $IMAGE
-          EOF
+              docker run -d --name backend-container -p 80:8080 $IMAGE"
+          
            
 
 #      # 9) Cloud Run 배포
