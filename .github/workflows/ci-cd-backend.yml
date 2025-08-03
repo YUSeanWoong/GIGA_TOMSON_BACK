@@ -58,47 +58,17 @@ jobs:
           IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
           docker push $IMAGE
 
-#      # A) 네트워크 연결 테스트 (ping)
-#      - name: Ping VM host
-#        run: |
-#          sudo apt-get update -y
-#          sudo apt-get install -y iputils-ping
-#          ping -c 4 ${{ secrets.VM_HOST }}
-#
-#      # B) SSH 포트 22 열림 확인 (netcat)
-#      - name: Check SSH port with bash
-#        run: |
-#          if timeout 5 bash -c "</dev/tcp/${{ secrets.VM_HOST }}/22"; then
-#            echo "✔ Port 22 is reachable"
-#          else
-#            echo "❌ Port 22 is NOT reachable"
-#            exit 1
-#          fi
-#
-#      # C) SSH 직접 디버그 시도 (verbose 모드)
-#      - name: Debug SSH connection
-#        run: |
-#          mkdir -p ~/.ssh
-#          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/id_rsa
-#          chmod 600 ~/.ssh/id_rsa
-#          ssh -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 -vvv \
-#           -i ~/.ssh/id_rsa \
-#           ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
-#           "echo SSH OK" || echo "SSH failed"
 
        # 9) VM에 SSH로 접속해 컨테이너 업데이트
       - name: Deploy to VM via SSH
         run: |
             mkdir -p ~/.ssh
-            # 1) private key 준비
             echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
    
-            # 2) 이미지 변수 설정
             REPO=backend-docker
             IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
    
-            # 3) SSH 연결 (StrictHostKeyChecking 비활성화)
             ssh -o StrictHostKeyChecking=no \
                 -o UserKnownHostsFile=/dev/null \
                 -i ~/.ssh/id_rsa \
@@ -108,7 +78,7 @@ jobs:
               docker stop backend-container 2>/dev/null || true
               docker rm   backend-container 2>/dev/null || true
               docker run -d --name backend-container -p 80:8080 $IMAGE
-           EOF
+           
 
 #      # 9) Cloud Run 배포
 #      - name: Deploy to Cloud Run
