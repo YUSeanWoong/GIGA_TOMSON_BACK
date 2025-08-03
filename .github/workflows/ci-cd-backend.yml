@@ -57,6 +57,13 @@ jobs:
 #          REPO=tomson-backend
 #          IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
 #          docker push $IMAGE
+      # 9-0) SSH 키 저장
+      - name: 🔐 Save SSH private key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VM_SSH_KEY }}" | tr -d '\r' > ~/.ssh/vm_deploy_key
+          chmod 600 ~/.ssh/vm_deploy_key
+
       # 9-0) 디버깅
       - name: 🛠️ Check saved SSH key on runner
         run: |
