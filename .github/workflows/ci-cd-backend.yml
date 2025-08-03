@@ -69,8 +69,7 @@ jobs:
             REPO=backend-docker
             IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
    
-            ssh -o StrictHostKeyChecking=no \
-                -o UserKnownHostsFile=/dev/null \
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \                 
                 -i ~/.ssh/id_rsa \
                 ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
               "cd ~/deploy && \
