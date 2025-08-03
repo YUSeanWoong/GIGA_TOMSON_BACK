@@ -66,10 +66,14 @@ jobs:
           ping -c 4 ${{ secrets.VM_HOST }}
 
       # B) SSH 포트 22 열림 확인 (netcat)
-      - name: Check SSH port
+      - name: Check SSH port with bash
         run: |
-          sudo apt-get install -y netcat
-          nc -vz ${{ secrets.VM_HOST }} 22 || echo "port 22 not reachable"
+          if timeout 5 bash -c "</dev/tcp/${{ secrets.VM_HOST }}/22"; then
+            echo "✔ Port 22 is reachable"
+          else
+            echo "❌ Port 22 is NOT reachable"
+            exit 1
+          fi
 
       # C) SSH 직접 디버그 시도 (verbose 모드)
       - name: Debug SSH connection
