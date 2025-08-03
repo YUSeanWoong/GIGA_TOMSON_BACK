@@ -63,6 +63,7 @@ jobs:
           ssh -vvv -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ~/.ssh/vm_deploy_key \
+              head -n 5 ~/.ssh/vm_deploy_key || echo "Key file missing or unreadable" \
               ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
               "echo Connected"      
 
