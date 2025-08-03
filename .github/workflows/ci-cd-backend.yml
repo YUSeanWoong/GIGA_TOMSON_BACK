@@ -12,51 +12,51 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) 코드 체크아웃
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Make Gradle wrapper executable
-        run: chmod +x gradlew
-
-      # 2) JDK 설치
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: '17'
-
-      # 3) 애플리케이션 빌드 (Gradle 기준)
-      - name: Build with Gradle
-        run: ./gradlew clean bootJar -x test
-
-      # 4) 단위 테스트
-      - name: Run tests
-        run: ./gradlew test
-
-      # 5) GCP 인증 (서비스 계정 키)
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v1
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      # 6) Docker → Artifact Registry 인증 설정
-      - name: Configure Docker for Artifact Registry
-        run: gcloud auth configure-docker --quiet asia-northeast3-docker.pkg.dev
-
-      # 7) Docker 이미지 빌드
-      - name: Build & Tag Docker image
-        run: |
-          REPO=tomson-backend
-          IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
-          docker build -t $IMAGE .
-
-      # 8) 이미지 푸시
-      - name: Push to Artifact Registry
-        run: |
-          REPO=tomson-backend
-          IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
-          docker push $IMAGE
+#      # 1) 코드 체크아웃
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Make Gradle wrapper executable
+#        run: chmod +x gradlew
+#
+#      # 2) JDK 설치
+#      - name: Set up Java
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: temurin
+#          java-version: '17'
+#
+#      # 3) 애플리케이션 빌드 (Gradle 기준)
+#      - name: Build with Gradle
+#        run: ./gradlew clean bootJar -x test
+#
+#      # 4) 단위 테스트
+#      - name: Run tests
+#        run: ./gradlew test
+#
+#      # 5) GCP 인증 (서비스 계정 키)
+#      - name: Authenticate to Google Cloud
+#        uses: google-github-actions/auth@v1
+#        with:
+#          credentials_json: ${{ secrets.GCP_SA_KEY }}
+#
+#      # 6) Docker → Artifact Registry 인증 설정
+#      - name: Configure Docker for Artifact Registry
+#        run: gcloud auth configure-docker --quiet asia-northeast3-docker.pkg.dev
+#
+#      # 7) Docker 이미지 빌드
+#      - name: Build & Tag Docker image
+#        run: |
+#          REPO=tomson-backend
+#          IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
+#          docker build -t $IMAGE .
+#
+#      # 8) 이미지 푸시
+#      - name: Push to Artifact Registry
+#        run: |
+#          REPO=tomson-backend
+#          IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
+#          docker push $IMAGE
       # 9-0) SSH 키 저장
       - name: 🔐 Save SSH private key
         run: |
