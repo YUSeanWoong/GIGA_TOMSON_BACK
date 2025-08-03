@@ -108,7 +108,10 @@ jobs:
                docker pull $IMAGE && \
                docker stop backend-container 2>/dev/null || true && \
                docker rm backend-container 2>/dev/null || true && \
-               docker run -d --name backend-container -p 80:8080 $IMAGE"
+               docker run -d --name backend-container -p 80:8080 $IMAGE && \
+               docker images --format '{{.Repository}}:{{.Tag}} {{.CreatedAt}}' \
+               | grep '^asia-northeast3-docker.pkg.dev' \
+               | sort -rk2 | awk 'NR>2 {print \$1}' | xargs -r docker rmi"
 
 #      # 9) Cloud Run 배포
 #      - name: Deploy to Cloud Run
