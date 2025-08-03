@@ -109,7 +109,6 @@ jobs:
                docker stop backend-container 2>/dev/null || true && \
                docker rm backend-container 2>/dev/null || true && \
                docker run -d --name backend-container -p 80:8080 $IMAGE"
-          
 
 #      # 9) Cloud Run 배포
 #      - name: Deploy to Cloud Run
