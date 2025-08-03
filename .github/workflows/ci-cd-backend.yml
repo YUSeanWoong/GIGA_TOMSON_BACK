@@ -57,7 +57,14 @@ jobs:
           REPO=tomson-backend
           IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
           docker push $IMAGE
-
+      # 9-0) 디버깅
+      - name: Log SSH connection test
+        run: |
+          ssh -vvv -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ~/.ssh/id_rsa \
+              ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
+              "echo Connected"      
 
        # 9) VM에 SSH로 접속해 컨테이너 업데이트
       - name: Deploy to VM via SSH
