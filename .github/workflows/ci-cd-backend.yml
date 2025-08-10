@@ -110,7 +110,11 @@ jobs:
               -o UserKnownHostsFile=/dev/null \
               -i ~/.ssh/vm_deploy_key \
               ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
-              "mkdir -p ~/deploy && cd ~/deploy && \
+              "set -e
+               DB_URL='${DB_URL}'
+               DB_USERNAME='${DB_USERNAME}'
+               DB_PASSWORD='${DB_PASSWORD}'                
+               mkdir -p ~/deploy && cd ~/deploy && \
                docker pull $IMAGE && \
                docker stop backend-container 2>/dev/null || true && \
                docker rm backend-container 2>/dev/null || true && \
