@@ -145,8 +145,7 @@ jobs:
                fi
 
                echo '✅ Container is running successfully'
-          
-          
+                
                docker images --format '{{.Repository}}:{{.Tag}} {{.CreatedAt}}' \
                | grep '^asia-northeast3-docker.pkg.dev' \
                | sort -rk2 | awk 'NR>2 {print \$1}' | xargs -r docker rmi"
