@@ -104,7 +104,6 @@ jobs:
           
           REPO=tomson-backend
           IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
-
         
           ssh -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
