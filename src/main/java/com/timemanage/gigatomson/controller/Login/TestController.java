@@ -1,4 +1,4 @@
-package com.gigatomson.controller.Login;
+package com.timemanage.gigatomson.controller.Login;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
