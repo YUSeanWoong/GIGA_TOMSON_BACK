@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idx")
-    private int idx;
+    private Integer idx;
 
     @Column(name = "user_id")
     private String userId;
@@ -27,25 +27,25 @@ public class User {
     private String userVer;
 
     @Column(name = "log_auto")
-    private int logAuto;
+    private Integer logAuto;
 
     @Column(name = "kakao_token")
     private String kakaoToken;
 
     @Column(name = "join_ym")
-    private int joinYm;
+    private Integer joinYm;
 
     @Column(name = "btn_login_kakao")
-    private int btnLoginKakao;
+    private Integer btnLoginKakao;
 
     @Column(name = "btn_find_id")
-    private int btnFindId;
+    private Integer btnFindId;
 
     @Column(name = "btn_find_pw")
-    private int btnFindPw;
+    private Integer btnFindPw;
 
     @Column(name = "btn_signup")
-    private int btnSignup;
+    private Integer btnSignup;
 
     @Column(name = "text_version")
     private String textVersion;
@@ -55,4 +55,6 @@ public class User {
 
     @Column(name = "img_title")
     private String imgTitle;
+
+
 }
