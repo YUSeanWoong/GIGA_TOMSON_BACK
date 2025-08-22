@@ -102,15 +102,15 @@ jobs:
 
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/vm_deploy_key
-          chmod 600 ~/.ssh/vm_deploy_key
+          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           
           REPO=tomson-backend
           IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
         
           ssh -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i ~/.ssh/vm_deploy_key \
+              -i ~/.ssh/id_rsa \
               ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
               "set -Eeuo pipefail
                set -x
