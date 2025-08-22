@@ -50,6 +50,7 @@ jobs:
           REPO=tomson-backend
           IMAGE=asia-northeast3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO}/${{ secrets.BACKEND_SERVICE_NAME }}:${{ github.sha }}
           docker build -t $IMAGE .
+          
 
       # 8) 이미지 푸시
       - name: Push to Artifact Registry
