@@ -131,7 +131,8 @@ jobs:
           
                echo '>>> Run new container'
                docker run -d --name backend-container \
-               -p 80:8080 \
+               --network appnet \
+               --expose 8080 \
                -e SPRING_DATASOURCE_URL=\"\$DB_URL\" \
                -e SPRING_DATASOURCE_USERNAME=\"\$DB_USERNAME\" \
                -e SPRING_DATASOURCE_PASSWORD=\"\$DB_PASSWORD\" \
