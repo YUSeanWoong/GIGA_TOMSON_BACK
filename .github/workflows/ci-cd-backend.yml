@@ -118,6 +118,9 @@ jobs:
                DB_URL='${DB_URL}'
                DB_USERNAME='${DB_USERNAME}'
                DB_PASSWORD='${DB_PASSWORD}'
+               KAKAO_REST_API_KEY='${KAKAO_REST_API_KEY}'
+               JWT_SECRET='${JWT_SECRET}'
+               JWT_ISSUER='${JWT_ISSUER}'
           
                mkdir -p ~/deploy && cd ~/deploy 
                
@@ -135,7 +138,9 @@ jobs:
                --expose 8080 \
                -e SPRING_DATASOURCE_URL=\"\$DB_URL\" \
                -e SPRING_DATASOURCE_USERNAME=\"\$DB_USERNAME\" \
-               -e SPRING_DATASOURCE_PASSWORD=\"\$DB_PASSWORD\" \
+               -e KAKAO_REST_API_KEY=\"\$KAKAO_REST_API_KEY\" \
+               -e JWT_SECRET=\"\$JWT_SECRET\" \
+               -e JWT_ISSUER=\"\$JWT_ISSUER\" \ 
                 $IMAGE && \
               
                echo '>>> Wait and verify container status'
