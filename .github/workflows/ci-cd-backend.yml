@@ -145,7 +145,7 @@ jobs:
                -e SPRING_DATASOURCE_PASSWORD=\"\$DB_PASSWORD\" \
                -e KAKAO_REST_API_KEY=\"\$KAKAO_REST_API_KEY\" \
                -e JWT_SECRET=\"\$JWT_SECRET\" \
-               -e JWT_ISSUER=\"\$JWT_ISSUER\" \ 
+               -e JWT_ISSUER=\"\$JWT_ISSUER\" \
                 $IMAGE && \
               
                echo '>>> Wait and verify container status'
