@@ -24,6 +24,7 @@ public class JwtProvider {
         var now = Instant.now();
         var exp = now.plusSeconds(accessTokenValidSeconds);
 
+
         return Jwts.builder()
                 .setSubject(String.valueOf(userId))
                 .setIssuer(issuer)
