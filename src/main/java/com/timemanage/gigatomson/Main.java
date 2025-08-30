@@ -21,6 +21,12 @@ public class Main {
             System.setProperty("DB_URL", env.get("DB_URL", ""));
             System.setProperty("DB_USERNAME", env.get("DB_USERNAME", ""));
             System.setProperty("DB_PASSWORD", env.get("DB_PASSWORD", ""));
+            System.setProperty("KAKAO_REST_API_KEY", env.get("KAKAO_REST_API_KEY", ""));
+            System.setProperty("JWT_SECRET", env.get("JWT_SECRET", ""));
+            System.setProperty("JWT_ISSUER", env.get("JWT_ISSUER", ""));
+            System.out.println("############");
+            System.out.println(env.get("KAKAO_REST_API_KEY", ""));
+            System.out.println("############");
         }
         SpringApplication.run(Main.class, args);
     }
