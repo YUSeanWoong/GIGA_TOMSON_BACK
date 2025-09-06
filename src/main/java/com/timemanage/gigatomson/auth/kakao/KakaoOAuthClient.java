@@ -56,6 +56,7 @@ public class KakaoOAuthClient {
                 .block();
     }
 
+
     public KakaoUserResponse getUserInfo(String accessToken) {
         return webClient.get()
                 .uri(userInfoUri)
