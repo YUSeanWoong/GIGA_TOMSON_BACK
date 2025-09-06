@@ -146,7 +146,7 @@ jobs:
                -e SPRING_DATASOURCE_USERNAME=\"\$DB_USERNAME\" \
                -e SPRING_DATASOURCE_PASSWORD=\"\$DB_PASSWORD\" \
                -e KAKAO_REST_API_KEY=\"\$KAKAO_REST_API_KEY\" \
-               -e KAKAO_REDIRECT_URL=\"\KAKAO_REDIRECT_URL\" \
+               -e KAKAO_REDIRECT_URL=\"\$KAKAO_REDIRECT_URL\" \
                -e JWT_SECRET=\"\$JWT_SECRET\" \
                -e JWT_ISSUER=\"\$JWT_ISSUER\" \
                 $IMAGE && \
