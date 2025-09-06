@@ -38,6 +38,10 @@ public class KakaoOAuthClient {
         if (clientSecret != null && !clientSecret.isBlank()) {
             form.add("client_secret", clientSecret);
         }
+
+        log.info("카카오 토큰 요청 redirect_uri = {}", redirectUri);
+        log.info("카카오 토큰 요청 code = {}", code);
+
         form.add("redirect_uri", redirectUri);
         form.add("code", code);
 
