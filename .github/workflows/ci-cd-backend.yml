@@ -128,7 +128,7 @@ jobs:
           
                mkdir -p ~/deploy && cd ~/deploy 
                
-          
+        
                echo '>>> Stop & remove old container'
                docker pull $IMAGE
           
