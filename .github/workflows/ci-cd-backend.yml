@@ -102,6 +102,7 @@ jobs:
           KAKAO_REST_API_KEY: ${{ secrets.KAKAO_REST_API_KEY }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_ISSUER: ${{ secrets.JWT_ISSUER }}
+          KAKAO_REDIRECT_URL: ${{ secrets.KAKAO_REDIRECT_URL }}
 
 
         run: |
@@ -123,6 +124,7 @@ jobs:
                DB_USERNAME='${DB_USERNAME}'
                DB_PASSWORD='${DB_PASSWORD}'
                KAKAO_REST_API_KEY='${KAKAO_REST_API_KEY}'
+               KAKAO_REDIRECT_URL='${KAKAO_REDIRECT_URL}'
                JWT_SECRET='${JWT_SECRET}'
                JWT_ISSUER='${JWT_ISSUER}'
           
@@ -144,6 +146,7 @@ jobs:
                -e SPRING_DATASOURCE_USERNAME=\"\$DB_USERNAME\" \
                -e SPRING_DATASOURCE_PASSWORD=\"\$DB_PASSWORD\" \
                -e KAKAO_REST_API_KEY=\"\$KAKAO_REST_API_KEY\" \
+               -e KAKAO_REDIRECT_URL=\"\KAKAO_REDIRECT_URL\" \
                -e JWT_SECRET=\"\$JWT_SECRET\" \
                -e JWT_ISSUER=\"\$JWT_ISSUER\" \
                 $IMAGE && \
