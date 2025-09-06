@@ -4,12 +4,15 @@ import com.timemanage.gigatomson.auth.dto.KakaoTokenResponse;
 import com.timemanage.gigatomson.auth.dto.KakaoUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class KakaoOAuthClient {
@@ -43,6 +46,12 @@ public class KakaoOAuthClient {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .body(BodyInserters.fromFormData(form))
                 .retrieve()
+                .onStatus(HttpStatusCode::isError, resp ->
+                        resp.bodyToMono(String.class).map(body -> {
+                            log.error("카카오 토큰 요청 실패: {}", body);
+                            return new RuntimeException("카카오 요청 실패: " + body);
+                        })
+                )
                 .bodyToMono(KakaoTokenResponse.class)
                 .block();
     }
