@@ -104,8 +104,6 @@ jobs:
           JWT_ISSUER: ${{ secrets.JWT_ISSUER }}
           KAKAO_REDIRECT_URL: ${{ secrets.KAKAO_REDIRECT_URL }}
 
-
-
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/id_rsa
