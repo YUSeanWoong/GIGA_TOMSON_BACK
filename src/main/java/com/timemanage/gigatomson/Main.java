@@ -13,9 +13,9 @@ public class Main {
     public static void main(String[] args) {
 
         String activeProfile = System.getenv().getOrDefault("SPRING_PROFILES_ACTIVE", System.getProperty("spring.profiles.active", "default"));
-        System.out.println("############");
+        System.out.println("###############");
         System.out.println(activeProfile);
-        System.out.println("#############");
+        System.out.println("##########adssdadssadds###");
         if("local".equalsIgnoreCase(activeProfile)) {
             Dotenv env = Dotenv.configure().ignoreIfMissing().load();
             System.setProperty("DB_URL", env.get("DB_URL", ""));
